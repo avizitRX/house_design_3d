@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_design_3d/base.dart';
+import 'package:home_design_3d/provider/gallery_provider.dart';
+import 'package:home_design_3d/screen/base.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home Design 3D',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => GalleryProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Home Design 3D',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
+          useMaterial3: true,
+        ),
+        home: const Base(),
       ),
-      home: const Base(),
     );
   }
 }

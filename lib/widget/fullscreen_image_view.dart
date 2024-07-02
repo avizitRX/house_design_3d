@@ -49,12 +49,6 @@ class _FullscreenImageViewState extends State<FullscreenImageView> {
             ),
           );
         },
-        // Image.asset(
-        //         'assets/1.png',
-        //         fit: (orientation == Orientation.portrait)
-        //             ? BoxFit.fitHeight
-        //             : BoxFit.fitWidth,
-        //       ),
       ),
       floatingActionButton: FloatingActionButton.small(
         child: const Icon(

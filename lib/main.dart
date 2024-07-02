@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:home_design_3d/provider/favorite_provider.dart';
 import 'package:home_design_3d/provider/gallery_provider.dart';
 import 'package:home_design_3d/screen/base.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => GalleryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteProvider(),
         ),
       ],
       child: MaterialApp(

@@ -3,7 +3,7 @@
     
     <application
         android:requestLegacyExternalStorage="true"
-        android:label="home_design_3d"
+        android:label="Home Design 3D"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -60,10 +60,17 @@ class _ImageGalleryState extends State<ImageGallery> {
                           ),
                         ),
                       ),
-                      child: Image(
-                        image: CachedNetworkImageProvider(
-                          gallery.images[gallery.selectedImage].sourceUrl,
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            gallery.images[gallery.selectedImage].sourceUrl,
+                        fit: BoxFit.contain,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress),
                         ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -153,6 +160,24 @@ class _ImageGalleryState extends State<ImageGallery> {
                                   ),
                                   fit: BoxFit.fill,
                                 ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  // Show a centered CircularProgressIndicator while image is loading
+                                  const Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors
+                                              .grey), // Adjust color as needed
+                                    ),
+                                  ),
+                                  Image(
+                                    image: CachedNetworkImageProvider(
+                                      gallery.images[realIndex].sourceUrl,
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ],
                               ),
                             ),
                           ),

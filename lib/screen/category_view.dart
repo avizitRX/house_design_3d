@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:home_design_3d/provider/favorite_provider.dart';
 import 'package:home_design_3d/provider/gallery_provider.dart';
 import 'package:home_design_3d/widget/image_gallery.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -36,6 +37,11 @@ class _CategoryViewState extends State<CategoryView> {
 
     final provider = Provider.of<GalleryProvider>(context, listen: false);
     provider.fetchImages(widget.categoryId);
+
+    // Get the favorite list from shared preferences
+    final favoriteProvider =
+        Provider.of<FavoriteProvider>(context, listen: false);
+    favoriteProvider.syncFavoriteImages();
   }
 
   @override
@@ -195,19 +201,31 @@ class _CategoryViewState extends State<CategoryView> {
                             ),
 
                             // Favorite Button
-                            IconButton(
-                              icon: const Icon(
-                                Icons.favorite_outline_rounded,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                              color: Theme.of(context).colorScheme.primary,
-                              style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(
-                                  Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              onPressed: () {},
+                            Consumer<FavoriteProvider>(
+                              builder: (context, favorite, child) {
+                                return IconButton(
+                                  icon: Icon(
+                                    favorite.favoriteImages.contains(provider
+                                            .images[provider.selectedImage]
+                                            .sourceUrl)
+                                        ? Icons.favorite_rounded
+                                        : Icons.favorite_outline_rounded,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  style: ButtonStyle(
+                                    backgroundColor: WidgetStatePropertyAll(
+                                      Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    await favorite.favoriteController(gallery
+                                        .images[gallery.selectedImage]
+                                        .sourceUrl);
+                                  },
+                                );
+                              },
                             ),
 
                             // Premium Button

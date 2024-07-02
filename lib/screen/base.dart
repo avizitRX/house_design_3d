@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_design_3d/screen/favorites.dart';
 
 import 'homepage.dart';
 
@@ -49,7 +50,7 @@ class _BaseState extends State<Base> {
         body: <Widget>[
           const Homepage(),
           const Homepage(),
-          const Homepage(),
+          const Favorites(),
           const Homepage(),
         ][currentPageIndex],
       ),

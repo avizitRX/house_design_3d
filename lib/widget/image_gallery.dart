@@ -167,8 +167,7 @@ class _ImageGalleryState extends State<ImageGallery> {
                                   const Center(
                                     child: CircularProgressIndicator(
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors
-                                              .grey), // Adjust color as needed
+                                          Colors.grey),
                                     ),
                                   ),
                                   Image(

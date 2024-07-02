@@ -146,6 +146,11 @@ class _CategoryViewState extends State<CategoryView> {
                                 ),
                               ),
                               onPressed: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Downloading...'),
+                                  ),
+                                );
                                 String url = provider
                                     .images[provider.selectedImage].sourceUrl;
                                 final response = await http.get(Uri.parse(url));

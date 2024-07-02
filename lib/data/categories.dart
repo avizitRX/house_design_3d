@@ -11,7 +11,7 @@ List<Category> categories = [
         europeanId: 15,
         westernId: 16,
         name: "Tin Shade House",
-        icon: "",
+        icon: "assets/icon/tin-shade.png",
       ),
       Category(
         categoryId: 3,
@@ -19,7 +19,7 @@ List<Category> categories = [
         europeanId: 12,
         westernId: 13,
         name: "1 Story House",
-        icon: "",
+        icon: "assets/icon/one-story.png",
       ),
       Category(
         categoryId: 4,
@@ -27,7 +27,7 @@ List<Category> categories = [
         europeanId: 24,
         westernId: 25,
         name: "Duplex House",
-        icon: "",
+        icon: "assets/icon/duplex.png",
       ),
       Category(
         categoryId: 5,
@@ -35,7 +35,7 @@ List<Category> categories = [
         europeanId: 18,
         westernId: 19,
         name: "3 Story House",
-        icon: "",
+        icon: "assets/icon/three-story.png",
       ),
       Category(
         categoryId: 6,
@@ -43,7 +43,7 @@ List<Category> categories = [
         europeanId: 21,
         westernId: 22,
         name: "4 Story House",
-        icon: "",
+        icon: "assets/icon/four-story.png",
       ),
       Category(
         categoryId: 7,
@@ -51,7 +51,7 @@ List<Category> categories = [
         europeanId: 27,
         westernId: 28,
         name: "High-Rise House",
-        icon: "",
+        icon: "assets/icon/high-rise.png",
       ),
     ],
   ),
@@ -62,17 +62,17 @@ List<Category> categories = [
       Category(
         categoryId: 8,
         name: "Living Room",
-        icon: "",
+        icon: "assets/icon/living-room.png",
       ),
       Category(
         categoryId: 9,
         name: "Kitchen Room",
-        icon: "",
+        icon: "assets/icon/kitchen-room.png",
       ),
       Category(
         categoryId: 10,
         name: "Bed Room",
-        icon: "",
+        icon: "assets/icon/bedroom.png",
       ),
     ],
   ),

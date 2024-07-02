@@ -130,7 +130,7 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                                 Card(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .primaryFixedDim,
+                                      .primaryContainer,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

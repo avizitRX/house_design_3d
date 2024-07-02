@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_design_3d/screen/about.dart';
 import 'package:home_design_3d/screen/favorites.dart';
 
 import 'homepage.dart';
@@ -43,7 +44,7 @@ class _BaseState extends State<Base> {
             NavigationDestination(
               icon: Icon(Icons.info_outline_rounded),
               selectedIcon: Icon(Icons.info_rounded),
-              label: 'Info',
+              label: 'About',
             ),
           ],
         ),
@@ -51,7 +52,7 @@ class _BaseState extends State<Base> {
           const Homepage(),
           const Homepage(),
           const Favorites(),
-          const Homepage(),
+          const About(),
         ][currentPageIndex],
       ),
     );

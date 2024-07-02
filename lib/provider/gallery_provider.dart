@@ -60,7 +60,7 @@ class GalleryProvider with ChangeNotifier {
     await dotenv.load(fileName: ".env");
     String? baseUrl = dotenv.env['baseUrl'];
     final response = await http.get(Uri.parse(
-        '$baseUrl/media?media_category=$id&media_type=image&per_page=20&page=1&_fields=id,source_url')); // Replace with your actual URL
+        '$baseUrl/media?media_category=$id&media_type=image&_fields=id,source_url'));
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);

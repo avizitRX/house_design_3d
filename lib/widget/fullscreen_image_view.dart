@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class FullscreenImageView extends StatefulWidget {
-  const FullscreenImageView({super.key});
+  const FullscreenImageView({super.key, this.imageUrl});
+
+  final String? imageUrl;
 
   @override
   State<FullscreenImageView> createState() => _FullscreenImageViewState();
@@ -37,8 +40,8 @@ class _FullscreenImageViewState extends State<FullscreenImageView> {
               clipBehavior: Clip.none,
               minScale: 1,
               maxScale: 3,
-              child: Image.asset(
-                'assets/1.png',
+              child: CachedNetworkImage(
+                imageUrl: widget.imageUrl!,
                 fit: (orientation == Orientation.portrait)
                     ? BoxFit.fitHeight
                     : BoxFit.fitWidth,
@@ -46,6 +49,12 @@ class _FullscreenImageViewState extends State<FullscreenImageView> {
             ),
           );
         },
+        // Image.asset(
+        //         'assets/1.png',
+        //         fit: (orientation == Orientation.portrait)
+        //             ? BoxFit.fitHeight
+        //             : BoxFit.fitWidth,
+        //       ),
       ),
       floatingActionButton: FloatingActionButton.small(
         child: const Icon(

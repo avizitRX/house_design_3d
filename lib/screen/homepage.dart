@@ -9,7 +9,13 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body: CategoriesSection(),
+        body: Column(
+          children: [
+            Expanded(
+              child: CategoriesSection(),
+            ),
+          ],
+        ),
       ),
     );
   }

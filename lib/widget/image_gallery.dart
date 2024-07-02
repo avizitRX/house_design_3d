@@ -54,7 +54,10 @@ class _ImageGalleryState extends State<ImageGallery> {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const FullscreenImageView(),
+                          builder: (_) => FullscreenImageView(
+                            imageUrl:
+                                gallery.images[gallery.selectedImage].sourceUrl,
+                          ),
                         ),
                       ),
                       child: Image(

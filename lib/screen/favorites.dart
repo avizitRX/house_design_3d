@@ -36,47 +36,51 @@ class _FavoritesState extends State<Favorites> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 16 / 12,
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8.0,
-                        crossAxisSpacing: 8.0,
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      itemCount: favoriteProvider.favoriteImages.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => FullscreenImageView(
-                                  imageUrl:
-                                      favoriteProvider.favoriteImages[index],
+                : Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 16 / 12,
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
+                          ),
+                          padding: const EdgeInsets.all(8.0),
+                          itemCount: favoriteProvider.favoriteImages.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => FullscreenImageView(
+                                      imageUrl: favoriteProvider
+                                          .favoriteImages[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                child: Center(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: CachedNetworkImageProvider(
+                                          favorite.favoriteImages[index],
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
                           },
-                          child: Card(
-                            child: Center(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                      favorite.favoriteImages[index],
-                                    ),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                    ],
                   );
           },
         ),

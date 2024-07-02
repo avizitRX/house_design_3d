@@ -116,7 +116,10 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CategoryView(
-                                    categoryId: 9,
+                                    categoryId: subcategory.categoryId!,
+                                    indianId: subcategory.indianId,
+                                    europeanId: subcategory.europeanId,
+                                    westernId: subcategory.westernId,
                                     name: subcategory.name,
                                   ),
                                 ),

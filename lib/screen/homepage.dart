@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_design_3d/widget/homepage_ad_slider.dart';
 
 import '../widget/categories_section.dart';
 
@@ -14,6 +15,7 @@ class Homepage extends StatelessWidget {
             Expanded(
               child: CategoriesSection(),
             ),
+            HomepageAdSlider(),
           ],
         ),
       ),

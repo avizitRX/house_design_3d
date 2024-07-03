@@ -46,6 +46,8 @@ dependencies:
   shared_preferences: ^2.2.3
   banner_carousel: ^1.2.1
   url_launcher: ^6.3.0
+  ripple_effect:
+    path: assets/package/ripple_effect/
 
 dev_dependencies:
   flutter_test:

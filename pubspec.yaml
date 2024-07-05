@@ -48,6 +48,9 @@ dependencies:
   url_launcher: ^6.3.0
   ripple_effect:
     path: assets/package/ripple_effect/
+  api_cache_manager: ^1.0.2
+  internet_connection_checker_plus: ^2.5.0
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:

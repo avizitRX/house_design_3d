@@ -100,6 +100,7 @@ class About extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Concept and Design',
+                                    textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall!
@@ -121,6 +122,7 @@ class About extends StatelessWidget {
                                   ),
                                   Text(
                                     'Development',
+                                    textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall!

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:home_design_3d/model/image_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 enum HouseStyle { all, indian, european, western }
 
@@ -60,54 +59,28 @@ class GalleryProvider with ChangeNotifier {
     _isLoading = true;
     var isCacheExist =
         await APICacheManager().isAPICacheKeyExist(id.toString());
-    print("Is Cache Exist: $isCacheExist");
 
     if (!isCacheExist) {
-      bool internetAccess = await InternetConnection().hasInternetAccess;
-      print("Internet: $internetAccess");
+      // Fetch Data using REST API request and save that to _images list
+      await dotenv.load(fileName: ".env");
+      String? baseUrl = dotenv.env['baseUrl'];
+      final response = await http.get(Uri.parse(
+          '$baseUrl/media?media_category=$id&media_type=image&_fields=id,source_url'));
 
-      if (internetAccess) {
-        // Fetch Data using REST API request and save that to _images list
-        await dotenv.load(fileName: ".env");
-        String? baseUrl = dotenv.env['baseUrl'];
-        final response = await http.get(Uri.parse(
-            '$baseUrl/media?media_category=$id&media_type=image&_fields=id,source_url'));
+      if (response.statusCode == 200) {
+        // Add data in Cache
+        APICacheDBModel cacheDBModel =
+            APICacheDBModel(key: id.toString(), syncData: response.body);
 
-        if (response.statusCode == 200) {
-          // Add data in Cache
-          APICacheDBModel cacheDBModel =
-              APICacheDBModel(key: id.toString(), syncData: response.body);
+        await APICacheManager().addCacheData(cacheDBModel);
 
-          await APICacheManager().addCacheData(cacheDBModel);
+        // Parse the response and save in _images
+        List<dynamic> data = json.decode(response.body);
+        _images = data.map((item) => ImageModel.fromJson(item)).toList();
 
-          // Parse the response and save in _images
-          List<dynamic> data = json.decode(response.body);
-          _images = data.map((item) => ImageModel.fromJson(item)).toList();
-
-          if (_images.isNotEmpty) {
-            _isLoading = false;
-          }
-        } else {
-          SnackBar(
-            content: const Text('Please check your internet connection!'),
-            action: SnackBarAction(
-              label: 'Retry',
-              onPressed: () {
-                fetchImages(id);
-              },
-            ),
-          );
+        if (_images.isNotEmpty) {
+          _isLoading = false;
         }
-      } else {
-        SnackBar(
-          content: const Text('Please check your internet connection!'),
-          action: SnackBarAction(
-            label: 'Retry',
-            onPressed: () {
-              fetchImages(id);
-            },
-          ),
-        );
       }
     } else {
       var cacheData = await APICacheManager().getCacheData(id.toString());

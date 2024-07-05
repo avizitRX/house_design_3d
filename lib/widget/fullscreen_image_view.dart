@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:home_design_3d/provider/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 class FullscreenImageView extends StatefulWidget {
   const FullscreenImageView({super.key, this.imageUrl});
@@ -50,13 +52,40 @@ class _FullscreenImageViewState extends State<FullscreenImageView> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.small(
-        child: const Icon(
-          Icons.close_rounded,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Consumer<FavoriteProvider>(
+              builder: (context, favorite, child) {
+                return FloatingActionButton.small(
+                  onPressed: () async {
+                    await favorite.favoriteController(widget.imageUrl ?? "");
+                  },
+                  child: Icon(
+                    favorite.favoriteImages.contains(widget.imageUrl)
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+                    size: 30,
+                    color: Colors.deepOrange,
+                  ),
+                );
+              },
+            ),
+            FloatingActionButton.small(
+              onPressed: () => Navigator.pop(context),
+              child: const Icon(Icons.close_rounded),
+            )
+          ],
         ),
-        onPressed: () => Navigator.pop(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }
+
+
+// const Icon(
+//           Icons.close_rounded,
+//         ),

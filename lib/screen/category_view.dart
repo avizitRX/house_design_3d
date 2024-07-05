@@ -233,6 +233,12 @@ class _CategoryViewState extends State<CategoryView> {
                                   ),
                                 ),
                                 onPressed: () async {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Opening share window...'),
+                                    ),
+                                  );
+
                                   final url = Uri.parse(provider
                                       .images[provider.selectedImage]
                                       .sourceUrl);

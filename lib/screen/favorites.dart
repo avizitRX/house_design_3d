@@ -36,7 +36,7 @@ class _FavoritesState extends State<Favorites> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : Column(
+                : Stack(
                     children: [
                       Expanded(
                         child: GridView.builder(
@@ -80,6 +80,29 @@ class _FavoritesState extends State<Favorites> {
                           },
                         ),
                       ),
+
+                      // If there is no favorite item
+                      favoriteProvider.favoriteImages.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.heart_broken_rounded,
+                                    size: 80,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                      "Looks like your favorites list is a bit lonely.",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge),
+                                ],
+                              ),
+                            )
+                          : Container(),
                     ],
                   );
           },

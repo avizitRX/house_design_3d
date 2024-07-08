@@ -38,47 +38,51 @@ class _FavoritesState extends State<Favorites> {
                   )
                 : Stack(
                     children: [
-                      Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 16 / 12,
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 8.0,
-                          ),
-                          padding: const EdgeInsets.all(8.0),
-                          itemCount: favoriteProvider.favoriteImages.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => FullscreenImageView(
-                                      imageUrl: favoriteProvider
-                                          .favoriteImages[index],
+                      Column(
+                        children: [
+                          Expanded(
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 16 / 12,
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 8.0,
+                                crossAxisSpacing: 8.0,
+                              ),
+                              padding: const EdgeInsets.all(8.0),
+                              itemCount: favoriteProvider.favoriteImages.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => FullscreenImageView(
+                                          imageUrl: favoriteProvider
+                                              .favoriteImages[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    child: Center(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                              favorite.favoriteImages[index],
+                                            ),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 );
                               },
-                              child: Card(
-                                child: Center(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: CachedNetworkImageProvider(
-                                          favorite.favoriteImages[index],
-                                        ),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
 
                       // If there is no favorite item
@@ -95,10 +99,10 @@ class _FavoritesState extends State<Favorites> {
                                     height: 10,
                                   ),
                                   Text(
-                                      "Looks like your favorites list is a bit lonely.",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge),
+                                    "Looks like your favorites list is a bit lonely.",
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
                                 ],
                               ),
                             )

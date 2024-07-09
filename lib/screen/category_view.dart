@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:home_design_3d/provider/favorite_provider.dart';
@@ -39,6 +38,7 @@ class _CategoryViewState extends State<CategoryView> {
     super.initState();
 
     final provider = Provider.of<GalleryProvider>(context, listen: false);
+    provider.changeHouseStyle({HouseStyle.all});
     provider.fetchImages(widget.categoryId);
 
     // Get the favorite list from shared preferences
@@ -49,35 +49,40 @@ class _CategoryViewState extends State<CategoryView> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<GalleryProvider>(context, listen: false);
-    RefreshController _refreshController =
+    final provider = Provider.of<GalleryProvider>(context, listen: true);
+    RefreshController refreshController =
         RefreshController(initialRefresh: false);
 
-    void _onRefresh() async {
+    void onRefresh() async {
       bool internetAccess = await InternetConnection().hasInternetAccess;
 
       if (internetAccess) {
         // Delete the cache, if has internet
-        APICacheManager().deleteCache(provider.selectedHouseStyle.toString());
+        APICacheManager().deleteCache(widget.categoryId.toString());
+        APICacheManager().deleteCache(widget.indianId.toString());
+        APICacheManager().deleteCache(widget.europeanId.toString());
+        APICacheManager().deleteCache(widget.westernId.toString());
 
         var selectedHouseStyle = provider.selectedHouseStyle;
         int id = widget.categoryId;
 
-        if (selectedHouseStyle == HouseStyle.all) {
+        if (selectedHouseStyle == {HouseStyle.all}) {
           id = widget.categoryId;
-        } else if (selectedHouseStyle == HouseStyle.indian) {
+        } else if (selectedHouseStyle == {HouseStyle.indian}) {
           id = widget.indianId!;
-        } else if (selectedHouseStyle == HouseStyle.european) {
+        } else if (selectedHouseStyle == {HouseStyle.european}) {
           id = widget.europeanId!;
-        } else if (selectedHouseStyle == HouseStyle.western) {
+        } else if (selectedHouseStyle == {HouseStyle.western}) {
           id = widget.westernId!;
         }
 
         await provider.fetchImages(id);
 
-        _refreshController.refreshCompleted();
+        provider.changeHouseStyle({HouseStyle.all});
+
+        refreshController.refreshCompleted();
       } else {
-        _refreshController.refreshFailed();
+        refreshController.refreshFailed();
       }
     }
 
@@ -96,8 +101,8 @@ class _CategoryViewState extends State<CategoryView> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SmartRefresher(
-            controller: _refreshController,
-            onRefresh: _onRefresh,
+            controller: refreshController,
+            onRefresh: onRefresh,
             header: const ClassicHeader(
               failedText: "Check your internet connection!",
               completeDuration: Duration(seconds: 2),

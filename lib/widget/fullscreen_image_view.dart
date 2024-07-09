@@ -84,8 +84,3 @@ class _FullscreenImageViewState extends State<FullscreenImageView> {
     );
   }
 }
-
-
-// const Icon(
-//           Icons.close_rounded,
-//         ),

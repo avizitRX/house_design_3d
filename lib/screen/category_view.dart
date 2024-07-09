@@ -49,11 +49,11 @@ class _CategoryViewState extends State<CategoryView> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<GalleryProvider>(context, listen: true);
-    RefreshController refreshController =
+    final provider = Provider.of<GalleryProvider>(context, listen: false);
+    RefreshController _refreshController =
         RefreshController(initialRefresh: false);
 
-    void onRefresh() async {
+    void _onRefresh() async {
       bool internetAccess = await InternetConnection().hasInternetAccess;
 
       if (internetAccess) {
@@ -80,9 +80,9 @@ class _CategoryViewState extends State<CategoryView> {
 
         provider.changeHouseStyle({HouseStyle.all});
 
-        refreshController.refreshCompleted();
+        _refreshController.refreshCompleted();
       } else {
-        refreshController.refreshFailed();
+        _refreshController.refreshFailed();
       }
     }
 
@@ -101,8 +101,8 @@ class _CategoryViewState extends State<CategoryView> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SmartRefresher(
-            controller: refreshController,
-            onRefresh: onRefresh,
+            controller: _refreshController,
+            onRefresh: _onRefresh,
             header: const ClassicHeader(
               failedText: "Check your internet connection!",
               completeDuration: Duration(seconds: 2),

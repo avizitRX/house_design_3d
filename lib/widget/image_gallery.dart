@@ -16,6 +16,7 @@ class ImageGallery extends StatefulWidget {
 
 class _ImageGalleryState extends State<ImageGallery> {
   late InfiniteScrollController imageController;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -24,6 +25,30 @@ class _ImageGalleryState extends State<ImageGallery> {
     imageController = InfiniteScrollController(
       initialItem: 0,
     );
+
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() async {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      final provider = Provider.of<GalleryProvider>(context, listen: false);
+
+      var selectedHouseStyle = provider.selectedHouseStyle;
+      int id = 0;
+
+      if (selectedHouseStyle == {HouseStyle.all}) {
+        id = provider.categoryId!;
+      } else if (selectedHouseStyle == {HouseStyle.indian}) {
+        id = provider.indianId!;
+      } else if (selectedHouseStyle == {HouseStyle.european}) {
+        id = provider.europeanId!;
+      } else if (selectedHouseStyle == {HouseStyle.western}) {
+        id = provider.westernId!;
+      }
+
+      await provider.fetchImages(id);
+    }
   }
 
   @override
@@ -55,14 +80,14 @@ class _ImageGalleryState extends State<ImageGallery> {
                         context,
                         MaterialPageRoute(
                           builder: (_) => FullscreenImageView(
-                            imageUrl:
-                                gallery.images[gallery.selectedImage].sourceUrl,
+                            imageUrl: gallery
+                                .images[gallery.selectedImage].source_url,
                           ),
                         ),
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            gallery.images[gallery.selectedImage].sourceUrl,
+                            gallery.images[gallery.selectedImage].source_url,
                         fit: BoxFit.contain,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
@@ -156,7 +181,7 @@ class _ImageGalleryState extends State<ImageGallery> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                    gallery.images[realIndex].sourceUrl,
+                                    gallery.images[realIndex].source_url,
                                   ),
                                   fit: BoxFit.fill,
                                 ),
@@ -172,7 +197,7 @@ class _ImageGalleryState extends State<ImageGallery> {
                                   ),
                                   Image(
                                     image: CachedNetworkImageProvider(
-                                      gallery.images[realIndex].sourceUrl,
+                                      gallery.images[realIndex].source_url,
                                     ),
                                     fit: BoxFit.fill,
                                   ),

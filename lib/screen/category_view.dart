@@ -197,7 +197,8 @@ class _CategoryViewState extends State<CategoryView> {
                                     ),
                                   );
                                   String url = provider
-                                      .images[provider.selectedImage].sourceUrl;
+                                      .images[provider.selectedImage]
+                                      .source_url;
                                   final response =
                                       await http.get(Uri.parse(url));
                                   if (response.statusCode == 200) {
@@ -246,7 +247,7 @@ class _CategoryViewState extends State<CategoryView> {
 
                                   final url = Uri.parse(provider
                                       .images[provider.selectedImage]
-                                      .sourceUrl);
+                                      .source_url);
                                   final response = await http.get(url);
                                   final bytes = response.bodyBytes;
 
@@ -266,7 +267,7 @@ class _CategoryViewState extends State<CategoryView> {
                                     icon: Icon(
                                       favorite.favoriteImages.contains(provider
                                               .images[provider.selectedImage]
-                                              .sourceUrl)
+                                              .source_url)
                                           ? Icons.favorite_rounded
                                           : Icons.favorite_outline_rounded,
                                       size: 30,
@@ -282,7 +283,7 @@ class _CategoryViewState extends State<CategoryView> {
                                     onPressed: () async {
                                       await favorite.favoriteController(gallery
                                           .images[gallery.selectedImage]
-                                          .sourceUrl);
+                                          .source_url);
                                     },
                                   );
                                 },
